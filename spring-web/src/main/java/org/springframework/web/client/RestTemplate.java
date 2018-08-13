@@ -488,7 +488,29 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 		RequestCallback requestCallback = httpEntityCallback(request);
 		execute(url, HttpMethod.PUT, requestCallback, null);
 	}
+	@Override
+	@Nullable
+	public <T> T putForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
+		final RequestCallback requestCallback = httpEntityCallback(request, responseType);
+		final HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor<>(responseType, getMessageConverters(), logger);
+		return execute(url, HttpMethod.PUT, requestCallback, responseExtractor, uriVariables);
+	}
 
+	@Override
+	@Nullable
+	public <T> T putForObject(String url, @Nullable Object request, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
+		final RequestCallback requestCallback = httpEntityCallback(request, responseType);
+		final HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor<>(responseType, getMessageConverters(), logger);
+		return execute(url, HttpMethod.PUT, requestCallback, responseExtractor, uriVariables);
+	}
+
+	@Override
+	@Nullable
+	public <T> T putForObject(URI url, @Nullable Object request, Class<T> responseType) throws RestClientException {
+		final RequestCallback requestCallback = httpEntityCallback(request, responseType);
+		final HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor<>(responseType, getMessageConverters());
+		return execute(url, HttpMethod.PUT, requestCallback, responseExtractor);
+	}
 
 	// PATCH
 
