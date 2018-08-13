@@ -372,6 +372,71 @@ public interface RestOperations {
 	 */
 	void put(URI url, @Nullable Object request) throws RestClientException;
 
+	
+	/**
+	 * Update a resource by PUTing the given object to the URI template,
+	 * and return the representation found in the response.
+	 * <p>URI Template variables are expanded using the given URI variables, if any.
+	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
+	 * add additional HTTP headers to the request.
+	 * <p><b>NOTE: The standard JDK HTTP library does not support HTTP PUT.
+	 * You need to use the Apache HttpComponents or OkHttp request factory.</b>
+	 * @param url the URL
+	 * @param request the object to be PUTed (may be {@code null})
+	 * @param responseType the type of the return value
+	 * @param uriVariables the variables to expand the template
+	 * @return the converted object
+	 * @since 4.3.5
+	 * @see HttpEntity
+	 * @see RestTemplate#setRequestFactory
+	 * @see org.springframework.http.client.HttpComponentsAsyncClientHttpRequestFactory
+	 * @see org.springframework.http.client.OkHttp3ClientHttpRequestFactory
+	 */
+	@Nullable
+	<T> T putForObject(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException;
+
+	/**
+	 * Update a resource by PUTing the given object to the URI template,
+	 * and return the representation found in the response.
+	 * <p>URI Template variables are expanded using the given map.
+	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
+	 * add additional HTTP headers to the request.
+	 * <p><b>NOTE: The standard JDK HTTP library does not support HTTP PUT.
+	 * You need to use the Apache HttpComponents or OkHttp request factory.</b>
+	 * @param url the URL
+	 * @param request the object to be PUTed (may be {@code null})
+	 * @param responseType the type of the return value
+	 * @param uriVariables the variables to expand the template
+	 * @return the converted object
+	 * @since 4.3.5
+	 * @see HttpEntity
+	 * @see RestTemplate#setRequestFactory
+	 * @see org.springframework.http.client.HttpComponentsAsyncClientHttpRequestFactory
+	 * @see org.springframework.http.client.OkHttp3ClientHttpRequestFactory
+	 */
+	@Nullable
+	<T> T putForObject(String url, @Nullable Object request, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
+
+	/**
+	 * Update a resource by PUTing the given object to the URL,
+	 * and return the representation found in the response.
+	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
+	 * add additional HTTP headers to the request.
+	 * <p><b>NOTE: The standard JDK HTTP library does not support HTTP PUT.
+	 * You need to use the Apache HttpComponents or OkHttp request factory.</b>
+	 * @param url the URL
+	 * @param request the object to be PUTed (may be {@code null})
+	 * @param responseType the type of the return value
+	 * @return the converted object
+	 * @since 4.3.5
+	 * @see HttpEntity
+	 * @see RestTemplate#setRequestFactory
+	 * @see org.springframework.http.client.HttpComponentsAsyncClientHttpRequestFactory
+	 * @see org.springframework.http.client.OkHttp3ClientHttpRequestFactory
+	 */
+	@Nullable
+	<T> T putForObject(URI url, @Nullable Object request, Class<T> responseType) throws RestClientException;
+
 
 	// PATCH
 
